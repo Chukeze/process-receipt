@@ -14,3 +14,10 @@ func ProcessReceipt( writer http.ResponseWriter, request * http.Request) {
 	json.NewEncoder(writer).Encode();//to Do: encode the data store response
 }
 
+func GetPoints(writer http.ResponseWriter, request *http.Request) {
+
+	//ToDo:Check Receipt
+
+	writer.Header().Set("Content-Type", "application/json");
+	json.NewEncoder(writer).Encode();
+}

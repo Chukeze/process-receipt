@@ -6,6 +6,8 @@ import (
 	"fetch-process-receipt/models"
 	"fetch-process-receipt/services"
 	"fetch-process-receipt/utils"
+
+	"github.com/gorilla/mux"
 )
 
 var ReceiptStore = make(map[string]models.Receipt);
@@ -32,9 +34,16 @@ func ProcessReceipt( writer http.ResponseWriter, request * http.Request) {
 }
 
 func GetPoints(writer http.ResponseWriter, request *http.Request) {
+	id := mux.Vars(request)["id"];
 
-	//ToDo:Check Receipt
+	receipt, exists := ReceiptStore[id];
+	if !exists {
+		http.Error(writer, "Receipt not found", http.StatusNotFound);
+		return;
+	}
+
+	points := services.CalculatePoints(receipt);
 
 	writer.Header().Set("Content-Type", "application/json");
-	json.NewEncoder(writer).Encode();
+	json.NewEncoder(writer).Encode(map[string]int{"points": points});
 }

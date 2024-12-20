@@ -10,6 +10,6 @@ import (
 func main() {
 	router := mux.NewRouter();
 
-	router.HandleFunc("/receipts/process")
+	router.HandleFunc("/receipts/process", )
 	router.HandleFunc("receipts/{id}/points")
 }

@@ -12,7 +12,7 @@ import (
 func CalculatePoints(receipt models.Receipt) int {
 	points := 0;
 
-	points += len(strings.ReplaceAl(receipt.Retailer, " ", ""));
+	points += len(strings.ReplaceAll(receipt.Retailer, " ", ""));
 
 	total, _ := strconv.ParseFloat(receipt.Total, 64);
 

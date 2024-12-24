@@ -21,7 +21,7 @@ func TestProcessReceipts(t *testing.T) {
 			{ "shortDescription": "Coca Cola", "price": "10.00" }
 		], 
 		"total": "100.00"
-	},`
+	}`
 
 	req := httptest.NewRequest("POST", "/receipts/process", bytes.NewBufferString(validReceipt));
 	req.Header.Set("Content-Type", "application/json");
@@ -74,12 +74,10 @@ func TestGetPoints(t *testing.T) {
 		Total:  "35.35",
 	}
 
-	body, err := json.Marshal(receipt)
-	
 	id := "test01";
 	handlers.ReceiptStore[id] = receipt;
 
-	req := httptest.NewRequest("GET", "/receipts/"+id+"/points", bytes.NewReader(body));
+	req := httptest.NewRequest("GET", "/receipts/"+id+"/points", nil);
 	rec := httptest.NewRecorder();
 
 	handlers.GetPoints(rec, req);

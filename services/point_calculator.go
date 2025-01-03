@@ -34,7 +34,7 @@ func CalculatePoints(receipt models.Receipt) int {
 		}
 	}
 
-	purchaseDate, _ := time.parse("2006-01-02", receipt.PurchaseDate);
+	purchaseDate, _ := time.Parse("2006-01-02", receipt.PurchaseDate);
 	if purchaseDate.Day()%2  != 0 {
 		points += 6;
 	}

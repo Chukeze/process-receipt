@@ -38,7 +38,7 @@ func GetPoints(writer http.ResponseWriter, request *http.Request) {
 
 	receipt, exists := ReceiptStore[id];
 	if !exists {
-		json.NewEncoder(w).Encode(map[string]string{"error": "Receipt not found"});
+		json.NewEncoder(writer).Encode(map[string]string{"error": "Receipt not found"});
 		writer.WriteHeader(http.StatusNotFound)
 		return;
 	}

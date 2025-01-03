@@ -3,12 +3,12 @@ package tests
 import (
 	"bytes"
 	"encoding/json"
+	"fetch-process-receipt/handlers"
+	"fetch-process-receipt/models"
+	"fmt"
 	"net/http"
 	"net/http/httptest"
-	"receipt-processor/handlers"
-	"receipt-processor/models"
 	"testing"
-	"fmt"
 )
 
 
@@ -27,7 +27,7 @@ func TestProcessReceipts(t *testing.T) {
 	req.Header.Set("Content-Type", "application/json");
 	rec := httptest.NewRecorder();
 
-	handlers.ProcessReceipts(rec, req);
+	handlers.ProcessReceipt(rec, req);
 
 	fmt.Println("Returned Payload:", rec.Body.String()) 
 
@@ -54,7 +54,7 @@ func TestProcessReceiptInvalidPayload(t *testing.T) {
 	req.Header.Set("Content-Type", "application/json");
 	rec := httptest.NewRecorder();
 
-	handlers.ProcessReceipts(rec, req);
+	handlers.ProcessReceipt(rec, req);
 
 	fmt.Println("Returned Payload:", rec.Body.String()) 
 

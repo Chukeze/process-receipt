@@ -23,23 +23,23 @@ func (receipt *Receipt) Validate() error {
 
 	// Validate Required Fields
 	if len(receipt.Retailer) == 0 {
-		return errors.New("Retailer is Required");
+		return errors.New("retailer is required");
 	}
 
 	if len(receipt.PurchaseDate) == 0 {
-		return errors.New("Purchase Date is Required");
+		return errors.New("purchase date is required");
 	}
 
 	if len(receipt.PurchaseTime) == 0 {
-		return errors.New("Purchase Time is Required");
+		return errors.New("purchase time is required");
 	}
 
 	if len(receipt.Items) == 0 {
-		return errors.New("Items are Required");
+		return errors.New("items are required");
 	}
 
 	if len(receipt.Items) < 1 {
-		return errors.New("Receipt must have at least 1 item");
+		return errors.New("receipt must have at least 1 item");
 	}
 
 	for _, item := range receipt.Items {
@@ -50,34 +50,34 @@ func (receipt *Receipt) Validate() error {
 
 	for _, item := range receipt.Items {
 		if len(item.ShortDescription) == 0 {
-			return errors.New(" A ShortDescription is Required");
+			return errors.New("a short description is required");
 		}
 
 		if len(item.Price) == 0 {
-			return errors.New("Price is Required");
+			return errors.New("price is required");
 		}
 	}
 
 	if len(receipt.Total) == 0 {
-		return errors.New("Total is Required");
+		return errors.New("total is required");
 	}
 
 
 	// Format Validation
 	if match, _ := regexp.MatchString(`^[\w\s\-&]+$`, receipt.Retailer); !match {
-		return errors.New("Retailer Does not match our Expected Format");
+		return errors.New("retailer does not match our expected format");
 	}
 
-	if _, err := timeParse("2006-01-02", receipt.PurchaseDate); err != nil {
-		return errors.New("Purchase Date Does not match our Expected Format, must be YYYY-MM-DD");
+	if _, err := time.Parse("2006-01-02", receipt.PurchaseDate); err != nil {
+		return errors.New("purchase date does not match our expected format, must be YYYY-MM-DD");
 	}
 
-	if _, err := timeParse("15:04", receipt.PurchaseTime); err != nil {
-		return errors.New("Purchase Time Does not match our Expected Format, must be HH:MM");
+	if _, err := time.Parse("15:04", receipt.PurchaseTime); err != nil {
+		return errors.New("purchase time does not match our expected format, must be HH:MM");
 	}
 
 	if match, _ := regexp.MatchString(`^\d+\.\d{2}$`, receipt.Total); !match {
-		return errors.New("Total Does not match our Expected Format, must be a decimal number with 2 decimal places");
+		return errors.New("total does not match our expected format, must be a decimal number with 2 decimal places");
 	}
 
 	return nil;
@@ -87,11 +87,11 @@ func (item *Item) Validate() error {
 
 	// Format Validation
 	if match, _ := regexp.MatchString( `^[\w\s\-]+$`, item.ShortDescription); !match {
-		return errors.New("ShortDescription Does not match our Expected Format");
+		return errors.New("short description does not match our expected format");
 	}
 
-	if match _ := regexp.MatchString(`^\d+\.\d{2}$`, item.Price); !match {
-		return errors.New("Price Does not match our Expected Format, must be a decimal number with 2 decimal places");
+	if match, _ := regexp.MatchString(`^\d+\.\d{2}$`, item.Price); !match {
+		return errors.New("price does not match our expected format, must be a decimal number with 2 decimal places");
 	}
 
 	return nil;
